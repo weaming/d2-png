@@ -2,13 +2,14 @@
 """
 pip3 install imgkit requests printable
 """
+import os, sys
 import json
 
 import imgkit
 import requests
 from printable import readable
 
-version = "0.1"
+version = "0.2"
 
 
 def http_post_json(url, data=None, is_json=True, encoding="utf8"):
@@ -49,13 +50,16 @@ def csv2png(data, outfile, prefix=None, suffix=None):
 
     html = post_github(md, 'markdown', None)
     html = render_page(html, prefix=prefix, suffix=suffix)
+    if os.getenv("DEBUG"):
+        print(html, file=sys.stderr)
     imgkit.from_string(
         html,
         outfile,
         options={
             'encoding': 'UTF-8',
             'quiet': None,
-            'format': 'png'
+            'format': 'png',
+            'enable-smart-width': None,
         }
     )
 
@@ -68,15 +72,15 @@ def render_page(body, prefix=None, suffix=None):
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
     body {
-      max-width: 980px;
+      max-width: 1366px;
       border: 1px solid #ddd;
-      outline: 1300px solid #fff;
-      margin: 16px auto;
+      margin: 6px;
+      zoom: 0.9;
     }
 
     body .markdown-body
     {
-      padding: 25px;
+      padding: 15px;
     }
 
     @font-face {
@@ -1066,5 +1070,5 @@ def render_page(body, prefix=None, suffix=None):
     <body>
     <div class="markdown-body">
     """
-    suffix = suffix or "</div></body>"
+    suffix = suffix or "</div></body></html>"
     return prefix + body + suffix
