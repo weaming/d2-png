@@ -9,7 +9,7 @@ import imgkit
 import requests
 from printable import readable
 
-version = "0.2"
+version = "0.3"
 
 
 def http_post_json(url, data=None, is_json=True, encoding="utf8"):
@@ -89,12 +89,16 @@ def render_page(body, prefix=None, suffix=None):
     }
 
     .markdown-body {
-      font-family: sans-serif;
       -ms-text-size-adjust: 100%;
       -webkit-text-size-adjust: 100%;
       color: #333333;
       overflow: hidden;
-      font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+      font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans,
+        "Inconsolata", Coda, "Microsoft Yahei", "Helvetica Neue",
+        Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC",
+        "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC",
+        "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei,
+        "WenQuanYi Zen Hei Sharp", noto, sans-serif, fontawesome-mini;
       font-size: 16px;
       line-height: 1.6;
       word-wrap: break-word;
@@ -158,7 +162,7 @@ def render_page(body, prefix=None, suffix=None):
     .markdown-body kbd,
     .markdown-body pre,
     .markdown-body samp {
-      font-family: monospace, monospace;
+      font-family: "Source Code Pro", monospace;
       font-size: 1em;
     }
 
