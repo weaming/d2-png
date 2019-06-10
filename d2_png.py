@@ -9,7 +9,7 @@ import imgkit
 import requests
 from printable import readable
 
-version = "0.3"
+version = "0.4"
 
 
 def http_post_json(url, data=None, is_json=True, encoding="utf8"):
@@ -40,13 +40,16 @@ def post_github(text, mode, context):
     return r
 
 
-def csv2png(data, outfile, prefix=None, suffix=None):
+def csv2png(data, outfile, prefix=None, suffix=None, title=""):
     if isinstance(data, str):
         with open(data) as f:
             data = json.load(f)
 
     md = readable(data, grid='markdown')
     md = '\n'.join(['|' + l + '|' for l in md.split('\n')])
+
+    if title:
+        md = f"{title}\n\n{md}"
 
     html = post_github(md, 'markdown', None)
     html = render_page(html, prefix=prefix, suffix=suffix)
